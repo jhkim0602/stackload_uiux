@@ -15,31 +15,31 @@ export default function TechStackDetailPage() {
   const [activeChapterId, setActiveChapterId] = useState(stack?.chapters[0]?.id || '');
 
   if (!stack) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+    return <div className="min-h-screen flex items-center justify-center font-medium text-base-500">Loading...</div>;
   }
 
   return (
-    <div className="bg-[#fcfdfd] min-h-screen font-sans">
+    <div className="bg-white min-h-screen font-sans">
       {/* 1. Cinematic Header */}
-      <div className="bg-white border-b border-gray-100 sticky top-16 z-20 bg-white/80 backdrop-blur-xl">
+      <div className="bg-white/80 border-b border-base-200 sticky top-16 z-20 backdrop-blur-xl">
         <div className="container max-w-[1600px] mx-auto px-4 h-20 flex items-center justify-between">
             <div className="flex items-center gap-4">
                  <button
                     onClick={() => router.back()}
-                    className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
+                    className="w-10 h-10 rounded-full hover:bg-base-100 flex items-center justify-center transition-colors"
                 >
-                    <ChevronLeft className="w-5 h-5 text-gray-600" />
+                    <ChevronLeft className="w-5 h-5 text-base-600" />
                 </button>
                 <div className="flex items-center gap-3">
                     <img src={stack.logo} alt={stack.name} className="w-8 h-8 object-contain" />
-                    <h1 className="text-xl font-black text-gray-900 tracking-tight">{stack.name}</h1>
-                    <span className="px-2 py-0.5 rounded-md bg-gray-100 text-[10px] font-bold text-gray-500 uppercase">
+                    <h1 className="text-xl font-black text-base-900 tracking-tight">{stack.name}</h1>
+                    <span className="px-2 py-0.5 rounded-md bg-base-100 text-[10px] font-bold text-base-500 uppercase">
                         {stack.category}
                     </span>
                 </div>
             </div>
             <div className="flex items-center gap-2">
-                 <a href={stack.docsUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-2 rounded-xl bg-black text-white text-sm font-bold hover:bg-gray-800 transition-all shadow-lg shadow-black/10">
+                 <a href={stack.docsUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-5 py-2 rounded-md bg-base-900 text-white text-sm font-bold hover:bg-base-800 transition-all shadow-none">
                     <BookOpen className="w-4 h-4" />
                     Official Docs
                  </a>

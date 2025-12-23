@@ -1,36 +1,72 @@
 'use client';
 
-import { useState, useEffect, Suspense, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { MOCK_JOB_ANALYSIS } from '@/mocks/interview';
 import Link from 'next/link';
-import { Mic, MicOff, Video as VideoIcon, VideoOff, MessageSquare, Send, X, Clock, Sparkles, Layout, MoreVertical, Settings, PhoneOff, User, Activity, FileText } from 'lucide-react';
+import { Mic, MicOff, Video as VideoIcon, VideoOff, Layout, Clock, Activity, PhoneOff, AlertCircle, ChevronRight, X, MessageSquare, List, Play, Square, ChevronLeft, User, BarChart2, Eye, Smile } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function InterviewRoomContent() {
   const searchParams = useSearchParams();
   const mode = searchParams.get('mode') || 'video';
+
+  // Phases: 'intro' -> 'reading'(AI reads q) -> 'thinking'(user preps) -> 'answering'(recording) -> 'feedback'
+  const [phase, setPhase] = useState<'intro' | 'reading' | 'thinking' | 'answering' | 'feedback'>('intro');
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
-  const [isRecording, setIsRecording] = useState(false);
   const [timer, setTimer] = useState(0);
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [micOn, setMicOn] = useState(true);
   const [cameraOn, setCameraOn] = useState(true);
-  const [sidebarTab, setSidebarTab] = useState<'analysis' | 'transcript'>('analysis');
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   const question = MOCK_JOB_ANALYSIS.generatedQuestions[currentQuestionIdx];
-  const isLast = currentQuestionIdx === MOCK_JOB_ANALYSIS.generatedQuestions.length - 1;
+  const totalQuestions = MOCK_JOB_ANALYSIS.generatedQuestions.length;
 
+  // Simulate Timer
   useEffect(() => {
     let interval: any;
-    if (isRecording) {
+    if (phase === 'thinking' || phase === 'answering') {
         interval = setInterval(() => setTimer(t => t + 1), 1000);
     } else {
         setTimer(0);
     }
     return () => clearInterval(interval);
-  }, [isRecording]);
+  }, [phase]);
+
+  // Auto-progress Simulation
+  useEffect(() => {
+      if (phase === 'intro') {
+          setTimeout(() => setPhase('reading'), 1500);
+      }
+      if (phase === 'reading') {
+          // AI Reading question...
+          setTimeout(() => setPhase('thinking'), 3000);
+      }
+      if (phase === 'thinking') {
+          // 30s prep time limit (shortened to 5s for demo)
+          if (timer > 5) {
+              // setPhase('answering'); // Auto start or wait for user? Let's wait for user usually, but auto for flow check
+          }
+      }
+  }, [phase, timer]);
+
+  const handleStartAnswer = () => {
+      setPhase('answering');
+      setTimer(0);
+  };
+
+  const handleStopAnswer = () => {
+      setPhase('feedback');
+      setTimer(0);
+      // Simulate moving to next question after brief feedback
+      setTimeout(() => {
+          if (currentQuestionIdx < totalQuestions - 1) {
+              setCurrentQuestionIdx(prev => prev + 1);
+              setPhase('reading');
+          }
+      }, 3000);
+  };
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -39,33 +75,46 @@ function InterviewRoomContent() {
   };
 
   return (
-    <div className="bg-[#1c1c1e] min-h-screen text-white flex flex-col font-sans overflow-hidden">
+    <div className="bg-base-50 min-h-screen text-base-900 flex flex-col font-sans overflow-hidden">
 
-      {/* 1. Professional Header */}
-      <header className="h-14 bg-[#1c1c1e] border-b border-[#2c2c2e] flex items-center justify-between px-4 z-50">
+      {/* 1. Header (Clean Light) */}
+      <header className="h-16 bg-white border-b border-base-200 flex items-center justify-between px-6 z-50 shadow-sm">
            <div className="flex items-center gap-4">
-               <div className="flex items-center gap-2">
-                   <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center font-bold text-sm">SL</div>
-                   <div className="flex flex-col">
-                       <span className="text-sm font-bold leading-tight">Mock Interview Session</span>
-                       <span className="text-[10px] text-gray-400">Frontend Developer • Toss Lab</span>
+               <Link href="/interview" className="w-8 h-8 rounded-full bg-base-100 flex items-center justify-center hover:bg-base-200 transition-colors">
+                   <ChevronLeft className="w-5 h-5 text-base-600" />
+               </Link>
+               <div>
+                   <h1 className="text-sm font-black text-base-900 leading-tight">실전 모의 면접 (Frontend)</h1>
+                   <div className="flex items-center gap-2 text-[10px] font-bold text-base-500">
+                       <span className="bg-accent-50 text-accent-700 px-1.5 py-0.5 rounded">Q{currentQuestionIdx + 1}/{totalQuestions}</span>
+                       <span>{question.type} 면접 진행 중</span>
                    </div>
-               </div>
-               <div className="h-4 w-[1px] bg-gray-600 mx-2"></div>
-               <div className="flex items-center gap-2 px-2 py-1 rounded bg-[#2c2c2e] text-xs font-medium text-gray-300">
-                   <Clock className="w-3 h-3" /> {formatTime(timer)}
                </div>
            </div>
 
-           <div className="flex items-center gap-3">
-               {isRecording && (
-                   <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 text-red-500 text-xs font-bold ring-1 ring-red-500/50 animate-pulse">
-                       <div className="w-1.5 h-1.5 rounded-full bg-red-500"></div>
-                       REC
+           <div className="flex items-center gap-4">
+               {/* Progress Steps */}
+               <div className="hidden md:flex items-center gap-8 mr-8">
+                   <div className={cn("flex flex-col items-center gap-1 transition-colors", phase === 'reading' ? "text-accent-600" : "text-base-300")}>
+                       <span className={cn("w-2 h-2 rounded-full", phase === 'reading' ? "bg-accent-600 ring-4 ring-accent-50" : "bg-base-200")}></span>
+                       <span className="text-[10px] font-bold uppercase">질문</span>
                    </div>
-               )}
-               <button onClick={() => setSidebarOpen(!isSidebarOpen)} className={cn("p-2 rounded-lg transition-colors", isSidebarOpen ? "bg-blue-600 text-white" : "hover:bg-[#2c2c2e] text-gray-400")}>
-                   <Layout className="w-5 h-5" />
+                   <div className="w-8 h-[2px] bg-base-100"></div>
+                   <div className={cn("flex flex-col items-center gap-1 transition-colors", phase === 'thinking' ? "text-accent-600" : "text-base-300")}>
+                       <span className={cn("w-2 h-2 rounded-full", phase === 'thinking' ? "bg-accent-600 ring-4 ring-accent-50" : "bg-base-200")}></span>
+                       <span className="text-[10px] font-bold uppercase">준비</span>
+                   </div>
+                   <div className="w-8 h-[2px] bg-base-100"></div>
+                   <div className={cn("flex flex-col items-center gap-1 transition-colors", phase === 'answering' ? "text-red-500" : "text-base-300")}>
+                       <span className={cn("w-2 h-2 rounded-full", phase === 'answering' ? "bg-red-500 ring-4 ring-red-50 animate-pulse" : "bg-base-200")}></span>
+                       <span className="text-[10px] font-bold uppercase">답변</span>
+                   </div>
+               </div>
+
+               <div className="h-6 w-[1px] bg-base-200 mx-2"></div>
+
+               <button onClick={() => setSidebarOpen(!isSidebarOpen)} className={cn("p-2 rounded-md transition-colors", isSidebarOpen ? "bg-base-100 text-base-900" : "text-base-400 hover:text-base-900")}>
+                   <BarChart2 className="w-5 h-5" />
                </button>
            </div>
       </header>
@@ -73,87 +122,153 @@ function InterviewRoomContent() {
       {/* 2. Main Workspace */}
       <div className="flex-1 flex overflow-hidden">
 
-          {/* Video Area */}
-          <main className="flex-1 flex flex-col p-4 relative bg-black">
+          <main className="flex-1 flex flex-col p-6 relative">
 
-              {/* Question Overlay (Draggable-like look) */}
-              <motion.div
-                key={question.id}
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className="absolute top-8 left-1/2 -translate-x-1/2 w-[90%] max-w-2xl z-20 bg-[#1c1c1e]/90 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-2xl"
-              >
-                  <div className="flex items-center justify-between mb-3 text-xs font-bold tracking-wider text-gray-500 uppercase">
-                      <span>Question {currentQuestionIdx + 1} of {MOCK_JOB_ANALYSIS.generatedQuestions.length}</span>
-                      <span className="text-blue-500">Technical</span>
-                  </div>
-                  <h2 className="text-xl font-bold leading-snug">{question.question}</h2>
-              </motion.div>
+              {/* Question Banner (Top Center) */}
+              <AnimatePresence mode='wait'>
+                  <motion.div
+                    key={currentQuestionIdx}
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    className="w-full max-w-4xl mx-auto mb-6 bg-white rounded-2xl shadow-sm border border-base-200 p-6 flex flex-col items-center text-center relative z-10"
+                  >
+                      <span className="text-[10px] font-black text-accent-600 bg-accent-50 px-2 py-0.5 rounded mb-3 uppercase tracking-wider">
+                          Question {currentQuestionIdx + 1}
+                      </span>
+                      <h2 className="text-xl md:text-2xl font-black text-base-900 leading-snug">
+                          {question.question}
+                      </h2>
+                      {phase === 'reading' && (
+                          <div className="mt-4 flex items-center gap-2 text-xs font-bold text-accent-600">
+                             <div className="w-2 h-2 bg-accent-600 rounded-full animate-bounce"></div>
+                             AI 면접관이 질문을 읽고 있습니다...
+                          </div>
+                      )}
+                  </motion.div>
+              </AnimatePresence>
 
-              {/* Grid Layout */}
-              <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 h-full relative">
-                  {/* AI Interviewer */}
-                  <div className="relative rounded-2xl overflow-hidden bg-[#2c2c2e] border border-[#3a3a3c]">
-                       <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80" className="w-full h-full object-cover" />
-                       <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur px-3 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2">
-                           <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                           Sarah (AI Interviewer)
+              {/* Grid Layout (Split View) */}
+              <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 h-full max-w-7xl mx-auto w-full">
+
+                  {/* Left: AI Interviewer */}
+                  <div className="relative rounded-3xl overflow-hidden bg-white ring-4 ring-base-50 border border-base-200 shadow-sm flex flex-col">
+                       {/* Avatar Area */}
+                       <div className="flex-1 relative bg-base-100 overflow-hidden">
+                           <img
+                                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80"
+                                className={cn("w-full h-full object-cover transition-all duration-700", phase === 'answering' ? "scale-105 opacity-90" : "scale-100 opacity-100")}
+                           />
+
+                           {/* AI Status Overlay */}
+                           <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                                <div className="bg-white/90 backdrop-blur px-4 py-2 rounded-xl border border-white/20 shadow-lg flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <User className="w-5 h-5 text-blue-600" />
+                                    </div>
+                                    <div>
+                                        <div className="text-xs font-bold text-base-900">Sarah</div>
+                                        <div className="text-[10px] font-medium text-base-500">AI Interviewer</div>
+                                    </div>
+                                </div>
+                                {phase === 'answering' && (
+                                    <div className="bg-green-500/90 backdrop-blur px-3 py-1.5 rounded-lg text-white text-[10px] font-bold flex items-center gap-1.5 shadow-lg animate-pulse">
+                                        <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                                        Listening...
+                                    </div>
+                                )}
+                           </div>
                        </div>
-                       <div className="absolute top-4 right-4 bg-black/60 p-1.5 rounded-lg text-blue-400">
-                           <Activity className="w-4 h-4 animate-pulse" />
-                       </div>
                   </div>
 
-                  {/* User */}
-                  <div className="relative rounded-2xl overflow-hidden bg-[#2c2c2e] border border-[#3a3a3c]">
+                  {/* Right: Candidate (User) */}
+                  <div className="relative rounded-3xl overflow-hidden bg-base-900 ring-4 ring-base-200 border border-base-300 shadow-md">
+                       {/* Camera Feed Mock */}
                        {cameraOn ? (
-                           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80" className="w-full h-full object-cover scale-x-[-1]" />
+                           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80" className="w-full h-full object-cover scale-x-[-1] opacity-90" />
                        ) : (
-                           <div className="w-full h-full flex items-center justify-center">
-                               <div className="w-24 h-24 rounded-full bg-[#3a3a3c] flex items-center justify-center text-2xl font-bold text-gray-500">JH</div>
+                           <div className="w-full h-full flex items-center justify-center bg-base-800 text-base-500 flex-col gap-2">
+                               <VideoOff className="w-10 h-10" />
+                               <span className="text-xs font-bold">Camera Off</span>
                            </div>
                        )}
-                       <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur px-3 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2">
-                           <div className={cn("w-2 h-2 rounded-full", micOn ? "bg-green-500" : "bg-red-500")}></div>
-                           You
+
+                       {/* Face Guide Overlay */}
+                       {cameraOn && (
+                           <div className="absolute inset-0 pointer-events-none opacity-30">
+                               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-64 border-2 border-dashed border-white/50 rounded-[3rem]"></div>
+                               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-full bg-white/20"></div>
+                           </div>
+                       )}
+
+                       {/* User Status Overlay */}
+                       <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                            <div className="bg-black/60 backdrop-blur px-4 py-2 rounded-xl border border-white/10 shadow-lg flex items-center gap-3 text-white">
+                                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                                    <Smile className="w-5 h-5 text-white" />
+                                </div>
+                                <div>
+                                    <div className="text-xs font-bold">나 (YOU)</div>
+                                    <div className={cn("text-[10px] font-medium flex items-center gap-1", micOn ? "text-green-400" : "text-red-400")}>
+                                        {micOn ? <Mic className="w-3 h-3" /> : <MicOff className="w-3 h-3" />}
+                                        {micOn ? "Audio On" : "Muted"}
+                                    </div>
+                                </div>
+                            </div>
                        </div>
-                       {!micOn && (
-                           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/70 p-4 rounded-full backdrop-blur-sm">
-                               <MicOff className="w-8 h-8 text-red-500" />
+
+                       {/* Recording Indicator */}
+                       {phase === 'answering' && (
+                           <div className="absolute top-6 right-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-600 text-white text-[10px] font-black shadow-lg animate-pulse">
+                               <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
+                               REC {formatTime(timer)}
+                           </div>
+                       )}
+
+                       {/* Think Timer */}
+                       {phase === 'thinking' && (
+                           <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center z-20">
+                               <div className="text-center text-white">
+                                   <div className="text-4xl font-black mb-2 tabular-nums">{30 - timer}</div>
+                                   <div className="text-sm font-bold opacity-80">답변 준비 시간</div>
+                               </div>
                            </div>
                        )}
                   </div>
               </div>
 
-              {/* Control Bar (Floating) */}
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-[#1c1c1e] border border-[#3a3a3c] p-2 rounded-2xl shadow-2xl backdrop-blur-xl">
-                  <button
-                      onClick={() => setMicOn(!micOn)}
-                      className={cn("p-4 rounded-xl transition-all", micOn ? "bg-[#2c2c2e] hover:bg-[#3a3a3c] text-white" : "bg-red-500 hover:bg-red-600 text-white")}
-                  >
-                      {micOn ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
-                  </button>
-                  <button
-                      onClick={() => setCameraOn(!cameraOn)}
-                      className={cn("p-4 rounded-xl transition-all", cameraOn ? "bg-[#2c2c2e] hover:bg-[#3a3a3c] text-white" : "bg-red-500 hover:bg-red-600 text-white")}
-                  >
-                      {cameraOn ? <VideoIcon className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
-                  </button>
+              {/* Bottom Control Bar */}
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-lg z-30">
+                  <div className="bg-white/90 backdrop-blur-md rounded-2xl p-3 shadow-2xl border border-base-200 ring-4 ring-base-50/50 flex items-center justify-between gap-4">
 
-                  <div className="w-[1px] h-8 bg-[#3a3a3c] mx-2"></div>
+                      <div className="flex items-center gap-2">
+                          <button onClick={() => setMicOn(!micOn)} className={cn("p-3 rounded-xl transition-all", micOn ? "bg-base-100 text-base-600 hover:bg-base-200" : "bg-red-50 text-red-500 ring-1 ring-red-100")}>
+                              {micOn ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
+                          </button>
+                          <button onClick={() => setCameraOn(!cameraOn)} className={cn("p-3 rounded-xl transition-all", cameraOn ? "bg-base-100 text-base-600 hover:bg-base-200" : "bg-red-50 text-red-500 ring-1 ring-red-100")}>
+                              {cameraOn ? <VideoIcon className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
+                          </button>
+                      </div>
 
-                  <button
-                      onClick={() => setIsRecording(!isRecording)}
-                      className={cn("px-6 rounded-xl font-bold flex items-center gap-2 transition-all", isRecording ? "bg-red-500/20 text-red-500" : "bg-blue-600 hover:bg-blue-700 text-white")}
-                  >
-                      {isRecording ? "Stop Interview" : "Start Answer"}
-                  </button>
+                      {phase === 'thinking' && (
+                          <button onClick={handleStartAnswer} className="flex-1 bg-accent-600 hover:bg-accent-700 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-accent-600/20 transition-all">
+                              <Play className="w-4 h-4 fill-current" /> 답변 바로 시작
+                          </button>
+                      )}
 
-                  <div className="w-[1px] h-8 bg-[#3a3a3c] mx-2"></div>
+                      {phase === 'answering' && (
+                          <button onClick={handleStopAnswer} className="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 transition-all">
+                              <Square className="w-4 h-4 fill-current" /> 답변 완료
+                          </button>
+                      )}
 
-                  <Link href="/interview" className="p-4 rounded-xl bg-[#2c2c2e] hover:bg-red-500/20 hover:text-red-500 text-gray-400 transition-colors">
-                      <PhoneOff className="w-5 h-5" />
-                  </Link>
+                      {(phase === 'reading' || phase === 'intro' || phase === 'feedback') && (
+                         <div className="flex-1 text-center text-xs font-bold text-base-400 py-3">
+                             {phase === 'feedback' ? "분석 중..." : "진행 중..."}
+                         </div>
+                      )}
+
+                  </div>
               </div>
 
           </main>
@@ -165,77 +280,54 @@ function InterviewRoomContent() {
                     initial={{ width: 0, opacity: 0 }}
                     animate={{ width: 320, opacity: 1 }}
                     exit={{ width: 0, opacity: 0 }}
-                    className="bg-[#1c1c1e] border-l border-[#2c2c2e] flex flex-col"
+                    className="bg-white border-l border-base-200 flex flex-col z-20 shadow-xl"
                   >
-                      <div className="flex items-center p-2 border-b border-[#2c2c2e]">
-                          <button
-                            onClick={() => setSidebarTab('analysis')}
-                            className={cn("flex-1 py-2 text-sm font-bold rounded-lg transition-colors", sidebarTab === 'analysis' ? "bg-[#2c2c2e] text-white" : "text-gray-500 hover:text-gray-300")}
-                          >
-                              Real-time Analysis
-                          </button>
-                          <button
-                            onClick={() => setSidebarTab('transcript')}
-                            className={cn("flex-1 py-2 text-sm font-bold rounded-lg transition-colors", sidebarTab === 'transcript' ? "bg-[#2c2c2e] text-white" : "text-gray-500 hover:text-gray-300")}
-                          >
-                              Transcript
-                          </button>
+                      <div className="p-5 border-b border-base-100">
+                          <h3 className="font-black text-base-900 flex items-center gap-2">
+                              <Activity className="w-4 h-4 text-accent-600" /> 실시간 분석
+                          </h3>
                       </div>
 
-                      <div className="flex-1 overflow-y-auto p-4 space-y-6">
-                            {/* Real-time Feedback Items */}
-                            <div className="space-y-4">
-                                <div className="bg-[#2c2c2e] p-4 rounded-xl border border-[#3a3a3c]">
-                                    <h4 className="text-xs font-bold text-gray-400 uppercase mb-3 flex items-center justify-between">
-                                        Voice Analysis
-                                        <span className="text-green-500 flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-green-500"></div> Good</span>
-                                    </h4>
-                                    <div className="space-y-4">
-                                        <div>
-                                            <div className="flex justify-between text-xs mb-1 text-gray-300">
-                                                <span>Pacing</span>
-                                                <span>120 wpm</span>
-                                            </div>
-                                            <div className="h-1.5 w-full bg-[#1c1c1e] rounded-full overflow-hidden">
-                                                <div className="h-full bg-green-500 w-[60%]"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="flex justify-between text-xs mb-1 text-gray-300">
-                                                <span>Tone Confidence</span>
-                                                <span>High</span>
-                                            </div>
-                                            <div className="h-1.5 w-full bg-[#1c1c1e] rounded-full overflow-hidden">
-                                                <div className="h-full bg-blue-500 w-[85%]"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                      <div className="flex-1 overflow-y-auto p-5 space-y-6">
 
-                                <div className="bg-[#2c2c2e] p-4 rounded-xl border border-[#3a3a3c]">
-                                    <h4 className="text-xs font-bold text-gray-400 uppercase mb-3 text-left">Keyword Detection</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="px-2 py-1 rounded bg-blue-500/20 text-blue-400 text-xs font-medium border border-blue-500/30">React</span>
-                                        <span className="px-2 py-1 rounded bg-blue-500/20 text-blue-400 text-xs font-medium border border-blue-500/30">Optimization</span>
-                                        <span className="px-2 py-1 rounded bg-[#3a3a3c] text-gray-400 text-xs font-medium border border-white/5">DOM</span>
-                                    </div>
+                            {/* Analysis Card 1: Gaze */}
+                            <div className="bg-base-50 p-4 rounded-2xl border border-base-100">
+                                <div className="flex justify-between items-center mb-3">
+                                    <span className="text-xs font-bold text-base-600 flex items-center gap-1.5">
+                                        <Eye className="w-3.5 h-3.5" /> 시선 처리
+                                    </span>
+                                    <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">Good</span>
                                 </div>
+                                <div className="h-2 w-full bg-base-200 rounded-full overflow-hidden">
+                                    <div className="h-full bg-green-500 w-[85%] rounded-full transition-all duration-300"></div>
+                                </div>
+                                <p className="text-[10px] text-base-400 mt-2 font-medium">카메라를 안정적으로 응시하고 있습니다.</p>
+                            </div>
 
-                                <div className="bg-[#2c2c2e] p-4 rounded-xl border border-yellow-500/30">
-                                    <h4 className="text-xs font-bold text-yellow-500 uppercase mb-2 flex items-center gap-2">
-                                        <AlertCircle className="w-3 h-3" /> Improvement Tip
-                                    </h4>
-                                    <p className="text-xs text-gray-300 leading-relaxed">
-                                        Try to provide more concrete examples when explaining "Optimization". Mention specific metrics if possible.
-                                    </p>
+                            {/* Analysis Card 2: Voice */}
+                            <div className="bg-base-50 p-4 rounded-2xl border border-base-100">
+                                <div className="flex justify-between items-center mb-3">
+                                    <span className="text-xs font-bold text-base-600 flex items-center gap-1.5">
+                                        <Activity className="w-3.5 h-3.5" /> 목소리 톤
+                                    </span>
+                                    <span className="text-[10px] bg-accent-100 text-accent-700 px-2 py-0.5 rounded-full font-bold">Confident</span>
+                                </div>
+                                <div className="flex items-end gap-1 h-8 justify-between px-2">
+                                     {[40, 60, 45, 70, 50, 65, 55, 40].map((h, i) => (
+                                         <div key={i} className="w-1.5 bg-accent-400 rounded-full transition-all duration-200" style={{ height: `${phase === 'answering' ? h : 20}%`}}></div>
+                                     ))}
                                 </div>
                             </div>
-                      </div>
 
-                      <div className="p-4 border-t border-[#2c2c2e] bg-[#1c1c1e]">
-                          <div className="text-xs text-center text-gray-500">
-                              AI Analysis is active and private to you.
-                          </div>
+                            {/* Memo / Guide */}
+                            <div className="bg-yellow-50 p-4 rounded-2xl border border-yellow-100">
+                                <div className="flex items-center gap-2 mb-2 text-yellow-700 font-bold text-xs">
+                                    <AlertCircle className="w-4 h-4" /> 가이드
+                                </div>
+                                <p className="text-xs text-yellow-800/80 leading-relaxed font-medium">
+                                    답변할 때 두괄식으로 핵심을 먼저 말하는 것이 좋습니다. "제 결론은..." 과 같은 표현을 사용해보세요.
+                                </p>
+                            </div>
                       </div>
                   </motion.aside>
               )}
@@ -246,19 +338,9 @@ function InterviewRoomContent() {
   );
 }
 
-function AlertCircle({ className }: { className?: string }) {
-    return (
-        <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-    );
-}
-
 export default function InterviewRoomPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#1c1c1e] flex items-center justify-center text-white">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-white flex items-center justify-center">Loading...</div>}>
       <InterviewRoomContent />
     </Suspense>
   );

@@ -38,7 +38,7 @@ function HeroCarousel() {
                         alt={heroActivities[currentIndex].title}
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/60 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-base-900 via-base-900/60 to-transparent" />
 
                     <div className="container mx-auto px-4 h-full flex items-center">
                         <div className="p-8 md:p-12 max-w-3xl">
@@ -47,19 +47,19 @@ function HeroCarousel() {
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ delay: 0.3 }}
                             >
-                                <span className="inline-block px-3 py-1 mb-4 text-xs font-bold text-white uppercase tracking-wider bg-blue-600 rounded-md">
+                                <span className="inline-block px-3 py-1 mb-4 text-xs font-bold text-white uppercase tracking-wider bg-accent-600 rounded-md">
                                     {heroActivities[currentIndex].type}
                                 </span>
                                 <h2 className="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">
                                     {heroActivities[currentIndex].title}
                                 </h2>
-                                <div className="flex items-center gap-6 text-gray-300 text-sm font-medium mb-8">
+                                <div className="flex items-center gap-6 text-base-300 text-sm font-medium mb-8">
                                     <span className="flex items-center gap-2"><Calendar className="w-4 h-4" /> {heroActivities[currentIndex].deadline} 마감</span>
                                     <span className="flex items-center gap-2"><MapPin className="w-4 h-4" /> {heroActivities[currentIndex].location.split(' ')[0]}</span>
                                 </div>
                                 <Link
                                     href={`/activities/${heroActivities[currentIndex].id}`}
-                                    className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-gray-900 rounded-none font-bold hover:bg-gray-100 transition-colors"
+                                    className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-base-900 rounded-md font-bold hover:bg-base-100 transition-colors h-11"
                                 >
                                     자세히 보기 <ArrowRight className="w-4 h-4" />
                                 </Link>
@@ -70,10 +70,10 @@ function HeroCarousel() {
             </AnimatePresence>
 
             {/* Controls */}
-            <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/20 hover:bg-black/40 text-white transition-all opacity-0 group-hover:opacity-100">
+            <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/20 hover:bg-black/40 text-white transition-all opacity-0 group-hover:opacity-100 rounded-full">
                 <ChevronLeft className="w-8 h-8" />
             </button>
-            <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/20 hover:bg-black/40 text-white transition-all opacity-0 group-hover:opacity-100">
+            <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/20 hover:bg-black/40 text-white transition-all opacity-0 group-hover:opacity-100 rounded-full">
                 <ChevronRight className="w-8 h-8" />
             </button>
 
@@ -84,7 +84,7 @@ function HeroCarousel() {
                         key={idx}
                         onClick={() => setCurrentIndex(idx)}
                         className={cn(
-                            "w-20 h-1 transition-all",
+                            "w-20 h-1 transition-all rounded-full",
                             idx === currentIndex ? "bg-white" : "bg-white/30 hover:bg-white/50"
                         )}
                     />
@@ -114,44 +114,39 @@ function TeamRecruitingSection() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-16">
             {/* Team Recruiting - 3 Columns */}
             <div className="lg:col-span-3">
-                <div className="flex items-center justify-between mb-6 border-b border-gray-900 pb-4">
-                    <h2 className="text-2xl font-black text-gray-900 flex items-center gap-2">
-                        <Users className="w-6 h-6" /> 팀원 모집 <span className="text-gray-400 font-normal text-sm ml-2">함께 도전할 동료를 찾아보세요</span>
+                <div className="flex items-center justify-between mb-6 border-b border-base-900 pb-4">
+                    <h2 className="text-2xl font-black text-base-900 flex items-center gap-2">
+                        <Users className="w-6 h-6" /> 팀원 모집 <span className="text-base-400 font-normal text-sm ml-2">함께 도전할 동료를 찾아보세요</span>
                     </h2>
-                    <Link href="/community" className="text-sm font-bold text-gray-500 hover:text-gray-900">더보기 +</Link>
+                    <Link href="/community" className="text-sm font-bold text-base-500 hover:text-base-900">더보기 +</Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {MOCK_TEAM_POSTS.slice(0, 3).map(post => (
-                        <div key={post.id} className="bg-white border border-gray-200 p-5 hover:border-black transition-colors group cursor-pointer">
+                        <div key={post.id} className="bg-white border border-base-200 p-5 hover:border-black transition-colors group cursor-pointer rounded-xl shadow-sm">
                             <div className="flex justify-between items-start mb-4">
                                 <span className={cn(
-                                    "px-2 py-1 text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-600 group-hover:bg-black group-hover:text-white transition-colors",
+                                    "px-2 py-1 text-[10px] font-bold uppercase tracking-wider bg-base-100 text-base-600 group-hover:bg-black group-hover:text-white transition-colors rounded-sm",
                                 )}>{post.role}</span>
-                                <span className="text-xs font-medium text-gray-400">{post.members}명</span>
+                                <span className="text-xs font-medium text-base-400">{post.members}명</span>
                             </div>
-                            <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3rem] text-lg leading-tight">{post.title}</h3>
-                            <p className="text-xs text-gray-500 font-medium truncate">{post.activity}</p>
+                            <h3 className="font-bold text-base-900 mb-2 line-clamp-2 min-h-[3rem] text-lg leading-tight">{post.title}</h3>
+                            <p className="text-xs text-base-500 font-medium truncate">{post.activity}</p>
                         </div>
                     ))}
                 </div>
-                {/* Secondary Row for Community Notices aligned below Recruiting? Or Separate? User said 'Next is community notices in list format' */}
-                {/* Let's put notices in the 4th column to balance the layout or below.
-                    User: "밑는 3열 방식으로 리스트... 그다음 커뮤니티의 후기... 리스트 형식으로 넣는방법으로 넣고"
-                    This implies vertically stacked or visually distinct. Let's try placing Notices in the right sidebar column for now as distinct list.
-                */}
             </div>
 
             {/* Community Notices/Awards - 1 Column (Right side of the row) */}
             <div className="lg:col-span-1">
-                 <div className="flex items-center justify-between mb-6 border-b border-gray-900 pb-4">
-                    <h2 className="text-xl font-black text-gray-900">커뮤니티 소식</h2>
+                 <div className="flex items-center justify-between mb-6 border-b border-base-900 pb-4">
+                    <h2 className="text-xl font-black text-base-900">커뮤니티 소식</h2>
                 </div>
-                <div className="bg-gray-50 p-6 space-y-6">
+                <div className="bg-base-50 p-6 space-y-6 rounded-xl border border-base-100">
                     {MOCK_NOTICES.map(notice => (
                         <div key={notice.id} className="group cursor-pointer">
-                            <span className="inline-block text-[10px] font-bold text-blue-600 mb-1">{notice.tag}</span>
-                            <h3 className="font-bold text-gray-900 text-sm leading-snug hover:underline mb-1">{notice.title}</h3>
-                            <p className="text-xs text-gray-400">{notice.date}</p>
+                            <span className="inline-block text-[10px] font-bold text-accent-600 mb-1">{notice.tag}</span>
+                            <h3 className="font-bold text-base-900 text-sm leading-snug hover:underline mb-1">{notice.title}</h3>
+                            <p className="text-xs text-base-400">{notice.date}</p>
                         </div>
                     ))}
                 </div>
@@ -163,7 +158,7 @@ function TeamRecruitingSection() {
 // --- Section 3: Filter & List ---
 function FilterBar({ activeType, onTypeChange, activeStatus, onStatusChange }: any) {
     return (
-        <div className="space-y-6 mb-8 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+        <div className="space-y-6 mb-8 bg-white p-6 rounded-3xl ring-4 ring-base-50 border border-base-200">
             {/* Top Row: Big Category Buttons */}
              <div className="flex flex-wrap gap-2">
                  {['대회', '데이터', '코드', '참가 방법', '학습', '강좌', '해커톤', '랭커특강', '로드맵'].map(filter => (
@@ -171,35 +166,35 @@ function FilterBar({ activeType, onTypeChange, activeStatus, onStatusChange }: a
                         key={filter}
                         onClick={() => onTypeChange(filter)}
                         className={cn(
-                            "px-5 py-2.5 rounded-full text-sm font-bold transition-all",
+                            "px-5 py-2.5 rounded-md text-sm font-bold transition-all h-9 flex items-center",
                             activeType === filter
-                                ? "bg-slate-900 text-white shadow-lg shadow-slate-900/20"
-                                : "bg-white text-gray-500 border border-gray-200 hover:border-gray-400 hover:text-gray-900"
+                                ? "bg-base-900 text-white shadow-none"
+                                : "bg-white text-base-500 border border-base-200 hover:border-base-400 hover:text-base-900"
                         )}
                      >
                          {filter}
                      </button>
                  ))}
                  <div className="flex-1" />
-                 <button className="px-5 py-2.5 bg-blue-50 text-blue-600 rounded-full font-bold text-sm hover:bg-blue-100 transition-colors flex items-center gap-2">
+                 <button className="px-5 py-2.5 bg-accent-50 text-accent-600 rounded-md font-bold text-sm hover:bg-accent-100 transition-colors flex items-center gap-2 h-9">
                      상세필터 <ChevronRight className="w-4 h-4 rotate-90" />
                  </button>
              </div>
 
              {/* Bottom Row: Detail Filters (Simplified) */}
-             <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-gray-100">
+             <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-base-100">
                  <div className="flex items-center gap-3">
-                     <span className="font-bold text-gray-900 text-sm">상태</span>
-                     <div className="flex gap-1.5 p-1 bg-gray-100 rounded-lg">
+                     <span className="font-bold text-base-900 text-sm">상태</span>
+                     <div className="flex gap-1.5 p-1 bg-base-50 rounded-md border border-base-100">
                         {['전체', '진행중', '종료', '연습'].map(status => (
                             <button
                                 key={status}
                                 onClick={() => onStatusChange(status)}
                                 className={cn(
-                                    "px-3 py-1.5 text-xs font-bold rounded-md transition-all",
+                                    "px-3 py-1 text-xs font-bold rounded-sm transition-all h-7",
                                     activeStatus === status
-                                        ? "bg-white text-gray-900 shadow-sm"
-                                        : "text-gray-500 hover:text-gray-900"
+                                        ? "bg-white text-base-900 shadow-sm border border-base-100"
+                                        : "text-base-500 hover:text-base-900"
                                 )}
                             >
                                 {status}
@@ -208,19 +203,19 @@ function FilterBar({ activeType, onTypeChange, activeStatus, onStatusChange }: a
                      </div>
                  </div>
 
-                 <div className="w-px h-8 bg-gray-200 mx-2 hidden sm:block" />
+                 <div className="w-px h-8 bg-base-200 mx-2 hidden sm:block" />
 
                  <div className="flex items-center gap-3">
-                     <span className="font-bold text-gray-900 text-sm">유형</span>
+                     <span className="font-bold text-base-900 text-sm">유형</span>
                      <div className="flex gap-2">
                         {['전체', '알고리즘', '프롬프트', '개발', '아이디어'].map(type => (
                              <button
                                 key={type}
                                 className={cn(
-                                    "px-3 py-1.5 text-xs font-bold rounded-lg border transition-all",
+                                    "px-3 py-1.5 text-xs font-bold rounded-md border transition-all h-7",
                                     type === '전체'
-                                        ? "bg-blue-50 text-blue-600 border-blue-200"
-                                        : "bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:text-gray-900"
+                                        ? "bg-accent-50 text-accent-600 border-accent-200"
+                                        : "bg-white text-base-500 border-base-200 hover:border-base-300 hover:text-base-900"
                                 )}
                              >
                                  {type}
@@ -232,7 +227,7 @@ function FilterBar({ activeType, onTypeChange, activeStatus, onStatusChange }: a
                  <div className="flex-1" />
 
                  <div className="flex gap-2">
-                     <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-gray-500 hover:text-gray-900"><RotateCcw className="w-3 h-3" /> 초기화</button>
+                     <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-base-500 hover:text-base-900"><RotateCcw className="w-3 h-3" /> 초기화</button>
                  </div>
              </div>
         </div>
@@ -242,24 +237,24 @@ function FilterBar({ activeType, onTypeChange, activeStatus, onStatusChange }: a
 function CompetitionListItem({ activity }: { activity: Activity }) {
     return (
         <Link href={`/activities/${activity.id}`} className="block group">
-            <div className="flex flex-col md:flex-row items-center gap-5 py-4 border-b border-gray-100 hover:bg-gray-50/80 transition-all px-4 rounded-xl">
+            <div className="flex flex-col md:flex-row items-center gap-5 py-5 border-b border-base-100 hover:bg-base-50/50 transition-all px-6">
                  {/* Image (Compact Size) */}
-                 <div className="w-full md:w-20 h-20 shrink-0 border border-gray-100 rounded-lg overflow-hidden bg-white shadow-sm">
+                 <div className="w-full md:w-20 h-20 shrink-0 border border-base-100 rounded-md overflow-hidden bg-white">
                      <img src={activity.imageUrl} alt={activity.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                  </div>
 
                  {/* Content */}
                  <div className="flex-1 w-full md:w-auto text-left">
                      <div className="flex items-center gap-2 mb-1">
-                         <span className="text-[10px] font-bold text-gray-500 group-hover:text-blue-600 transition-colors uppercase tracking-wider">{activity.organizer}</span>
+                         <span className="text-[10px] font-bold text-base-500 group-hover:text-accent-600 transition-colors uppercase tracking-wider">{activity.organizer}</span>
                          {activity.status === 'Imminent' && <span className="text-[10px] font-bold text-amber-500 flex items-center gap-0.5"><AlertCircle className="w-3 h-3" /> 마감임박</span>}
                      </div>
-                     <h3 className="text-lg font-bold text-gray-900 mb-1.5 group-hover:text-blue-600 transition-colors leading-tight line-clamp-1">
+                     <h3 className="text-lg font-bold text-base-900 mb-1.5 group-hover:text-accent-600 transition-colors leading-tight line-clamp-1">
                          {activity.title}
                      </h3>
                      <div className="flex flex-wrap gap-2">
                          {activity.tags.slice(0, 3).map(tag => (
-                             <span key={tag} className="bg-gray-100/80 px-2 py-0.5 rounded text-[10px] font-medium text-gray-500 border border-gray-200/50">{tag}</span>
+                             <span key={tag} className="bg-base-100/80 px-2 py-0.5 rounded-sm text-[10px] font-medium text-base-500 border border-base-200/50">{tag}</span>
                          ))}
                      </div>
                  </div>
@@ -270,16 +265,16 @@ function CompetitionListItem({ activity }: { activity: Activity }) {
                          <span className={cn(
                              "w-1.5 h-1.5 rounded-full",
                              activity.status === 'Open' ? "bg-green-500" :
-                             activity.status === 'Imminent' ? "bg-amber-500" : "bg-gray-300"
+                             activity.status === 'Imminent' ? "bg-amber-500" : "bg-base-300"
                          )} />
                          <span className={cn(
                              "text-xs font-bold",
                              activity.status === 'Open' ? "text-green-600" :
-                             activity.status === 'Imminent' ? "text-amber-600" : "text-gray-400"
+                             activity.status === 'Imminent' ? "text-amber-600" : "text-base-400"
                          )}>{activity.dDay === 'Closed' ? '마감' : activity.dDay}</span>
                      </div>
-                     <span className="text-xs text-gray-400 font-medium">{activity.participants?.toLocaleString() || 0}명 관심</span>
-                     <div className="text-sm font-black text-gray-900">
+                     <span className="text-xs text-base-400 font-medium">{activity.participants?.toLocaleString() || 0}명 관심</span>
+                     <div className="text-sm font-black text-base-900">
                          {activity.reward || '상금 정보 없음'}
                      </div>
                  </div>
@@ -293,7 +288,7 @@ export default function ActivitiesPage() {
   const [activeStatus, setActiveStatus] = useState('전체');
 
   return (
-    <div className="bg-[#fcfdfd] min-h-screen pb-20 font-sans">
+    <div className="bg-white min-h-screen pb-20 font-sans text-base-900">
        {/* 1. Full Width Banner */}
        <HeroCarousel />
 
@@ -304,8 +299,8 @@ export default function ActivitiesPage() {
            {/* 3. Competition List Area */}
            <section className="mt-16">
                <div className="flex items-end justify-between mb-4 px-2">
-                    <h2 className="text-xl font-black text-gray-900">대외활동 모음</h2>
-                    <span className="text-xs font-bold text-gray-500">총 <span className="text-blue-600">{MOCK_ACTIVITIES.length}</span>개</span>
+                    <h2 className="text-xl font-black text-base-900">대외활동 모음</h2>
+                    <span className="text-xs font-bold text-base-500">총 <span className="text-accent-600">{MOCK_ACTIVITIES.length}</span>개</span>
                </div>
 
                <FilterBar
@@ -315,7 +310,7 @@ export default function ActivitiesPage() {
                 onStatusChange={setActiveStatus}
                />
 
-               <div className="flex flex-col bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
+               <div className="flex flex-col bg-white ring-4 ring-base-50 border border-base-200 rounded-3xl overflow-hidden shadow-sm">
                    {MOCK_ACTIVITIES.map(activity => (
                        <CompetitionListItem key={activity.id} activity={activity} />
                    ))}

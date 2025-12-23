@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { AppShell } from "@/components/layout/AppShell";
+import { MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <AppShell>
-            {children}
-        </AppShell>
+        <MantineProvider>
+            <AppShell>
+                {children}
+            </AppShell>
+        </MantineProvider>
       </body>
     </html>
   );

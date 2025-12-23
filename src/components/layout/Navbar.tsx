@@ -93,13 +93,13 @@ export function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200" onMouseLeave={handleMouseLeave}>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/40 backdrop-blur-2xl border-b border-base-200 transition-all duration-300" onMouseLeave={handleMouseLeave}>
       <div className="container max-w-7xl mx-auto h-14 flex items-center justify-between px-4 relative">
         {/* Brand */}
         <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="bg-gray-900 text-white p-1 rounded-md font-bold text-xs group-hover:bg-black transition-colors">SL</div>
-              <span className="font-bold text-lg tracking-tight text-gray-900">StackLoad</span>
+              <div className="bg-base-900 text-white p-1 rounded-md font-bold text-xs group-hover:bg-black transition-colors">SL</div>
+              <span className="font-bold text-lg tracking-tight text-base-900">StackLoad</span>
             </Link>
 
             {/* Desktop Nav */}
@@ -113,12 +113,12 @@ export function Navbar() {
                         className={cn(
                             "px-3 py-1.5 text-sm font-medium transition-colors rounded-md flex items-center gap-1.5 mx-0.5",
                             isActive || hoveredNav === item.label
-                                ? "text-gray-900 bg-gray-100 font-semibold"
-                                : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                                ? "text-base-900 bg-base-100 font-semibold"
+                                : "text-base-600 hover:text-base-900 hover:bg-base-50"
                         )}
                       >
                         {item.label}
-                        {item.children && <ChevronDown className={cn("w-3 h-3 transition-transform text-gray-400", hoveredNav === item.label ? "rotate-180" : "")} />}
+                        {item.children && <ChevronDown className={cn("w-3 h-3 transition-transform text-base-400", hoveredNav === item.label ? "rotate-180" : "")} />}
                       </Link>
                   </div>
                 );
@@ -128,12 +128,12 @@ export function Navbar() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
-          <div className="hidden md:flex items-center bg-gray-50 rounded-md px-3 py-1.5 w-60 border border-gray-200 focus-within:border-gray-400 focus-within:bg-white transition-all">
-            <Search className="h-3.5 w-3.5 text-gray-400" />
+          <div className="hidden md:flex items-center bg-base-50 rounded-md px-3 py-1.5 w-60 border border-gray-200 focus-within:border-base-400 focus-within:bg-white transition-all">
+            <Search className="h-3.5 w-3.5 text-base-400" />
             <input
               type="text"
               placeholder="Search..."
-              className="bg-transparent border-none outline-none text-sm w-full ml-2 placeholder-gray-400 text-gray-900"
+              className="bg-transparent border-none outline-none text-sm w-full ml-2 placeholder-gray-400 text-base-900"
             />
           </div>
 
@@ -141,14 +141,14 @@ export function Navbar() {
 
           <Link href="/profile" className="flex items-center gap-2 group">
             <div className="text-right hidden md:block">
-                <p className="text-xs font-semibold text-gray-900 leading-none mb-0.5">{MOCK_USER.name}</p>
+                <p className="text-xs font-semibold text-base-900 leading-none mb-0.5">{MOCK_USER.name}</p>
             </div>
-            <div className="h-8 w-8 overflow-hidden rounded-md border border-gray-200 group-hover:border-gray-400 transition-colors">
+            <div className="h-8 w-8 overflow-hidden rounded-md border border-gray-200 group-hover:border-base-400 transition-colors">
                <img src={MOCK_USER.avatar} alt="User" className="h-full w-full object-cover" />
             </div>
           </Link>
 
-          <button className="lg:hidden p-2 text-gray-600">
+          <button className="lg:hidden p-2 text-base-600">
               <Menu className="h-5 w-5" />
           </button>
         </div>
@@ -165,24 +165,24 @@ export function Navbar() {
                   {NAV_ITEMS.find(i => i.label === hoveredNav)?.isMega ? (
                       // Complex Mega Menu (Activities)
                       <div className="grid grid-cols-4 gap-8">
-                          <div className="col-span-1 bg-gray-50 rounded-lg p-5 border border-gray-100">
-                              <h3 className="font-bold text-lg text-gray-900 mb-2">{hoveredNav}</h3>
-                              <p className="text-xs text-gray-500 leading-relaxed mb-4">
+                          <div className="col-span-1 bg-base-50 rounded-lg p-5 border border-base-100">
+                              <h3 className="font-bold text-lg text-base-900 mb-2">{hoveredNav}</h3>
+                              <p className="text-xs text-base-500 leading-relaxed mb-4">
                                   새로운 기회를 발견하고<br/>
                                   동료와 함께 성장하세요.
                               </p>
-                              <div className="flex items-center text-[10px] font-bold text-gray-600 gap-1 uppercase tracking-wide">
+                              <div className="flex items-center text-[10px] font-bold text-base-600 gap-1 uppercase tracking-wide">
                                   <Zap className="w-3 h-3" /> Trending: Hackathon
                               </div>
                           </div>
                           {(NAV_ITEMS.find(i => i.label === hoveredNav)?.children as any[]).map((group: any, idx) => (
                               <div key={idx} className="col-span-1">
-                                  <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2 text-xs uppercase tracking-wider text-gray-400">{group.title}</h4>
+                                  <h4 className="font-bold text-base-900 mb-3 flex items-center gap-2 text-xs uppercase tracking-wider text-base-400">{group.title}</h4>
                                   <ul className="space-y-1">
                                       {group.items.map((sub: any) => (
                                           <li key={sub.label}>
-                                              <Link href={sub.href} className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 px-2 py-1.5 rounded-md transition-colors group/link">
-                                                  {sub.icon && <sub.icon className="w-3.5 h-3.5 text-gray-400 group-hover/link:text-gray-900" />}
+                                              <Link href={sub.href} className="flex items-center gap-2 text-sm text-base-600 hover:text-base-900 hover:bg-base-50 px-2 py-1.5 rounded-md transition-colors group/link">
+                                                  {sub.icon && <sub.icon className="w-3.5 h-3.5 text-base-400 group-hover/link:text-base-900" />}
                                                   {sub.label}
                                               </Link>
                                           </li>
@@ -195,9 +195,9 @@ export function Navbar() {
                       // Simple Dropdown (Tech Hub, Jobs)
                       <div className="grid grid-cols-2 gap-2 max-w-sm ml-4">
                           {(NAV_ITEMS.find(i => i.label === hoveredNav)?.children as any[]).map((sub: any) => (
-                              <Link key={sub.label} href={sub.href} className="flex flex-col group p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition-all">
-                                  <span className="text-sm font-bold text-gray-900 group-hover:text-black">{sub.label}</span>
-                                  <span className="text-xs text-gray-500 mt-1 font-medium">{sub.desc}</span>
+                              <Link key={sub.label} href={sub.href} className="flex flex-col group p-3 hover:bg-base-50 rounded-lg border border-transparent hover:border-gray-200 transition-all">
+                                  <span className="text-sm font-bold text-base-900 group-hover:text-black">{sub.label}</span>
+                                  <span className="text-xs text-base-500 mt-1 font-medium">{sub.desc}</span>
                               </Link>
                           ))}
                       </div>

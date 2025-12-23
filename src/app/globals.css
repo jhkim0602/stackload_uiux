@@ -4,38 +4,53 @@
 
 @layer base {
   :root {
-    /* Light Mode Palette (Clean Productivity) */
+    /* Syntro Theme Palette */
+    /* Base (Slate) - Structure, Text, Boarders */
+    --base-50: #f8fafc;
+    --base-100: #f1f5f9;
+    --base-200: #e2e8f0;
+    --base-300: #cbd5e1;
+    --base-400: #94a3b8;
+    --base-500: #64748b;
+    --base-600: #475569;
+    --base-700: #334155;
+    --base-800: #1e293b;
+    --base-900: #0f172a;
+    --base-950: #020617;
+
+    /* Accent (Blue) - Primary Actions, Highlights */
+    --accent-50: #eff6ff;
+    --accent-100: #dbeafe;
+    --accent-200: #bfdbfe;
+    --accent-300: #93c5fd;
+    --accent-400: #60a5fa;
+    --accent-500: #3b82f6;
+    --accent-600: #2563eb;
+    --accent-700: #1d4ed8;
+    --accent-800: #1e40af;
+    --accent-900: #1e3a8a;
+    --accent-950: #172554;
+
+    /* Legacy Mappings for compatibility */
     --background: #ffffff;
-    --foreground: #0f172a; /* Slate 900 */
-
-    /* Surface Colors */
+    --foreground: var(--base-900);
     --card: #ffffff;
-    --card-foreground: #0f172a;
+    --card-foreground: var(--base-900);
     --popover: #ffffff;
-    --popover-foreground: #0f172a;
-
-    /* Primary Actions (Solid Slate/Black for professional feel) */
-    --primary: #0f172a;
+    --popover-foreground: var(--base-900);
+    --primary: var(--base-900);
     --primary-foreground: #ffffff;
-
-    /* Secondary / Muted */
-    --secondary: #f1f5f9; /* Slate 100 */
-    --secondary-foreground: #0f172a;
-    --muted: #f1f5f9;
-    --muted-foreground: #64748b; /* Slate 500 */
-
-    /* Accents */
-    --accent: #f8fafc; /* Slate 50 */
-    --accent-foreground: #0f172a;
+    --secondary: var(--base-100);
+    --secondary-foreground: var(--base-900);
+    --muted: var(--base-100);
+    --muted-foreground: var(--base-500);
+    --accent: var(--accent-50);
+    --accent-foreground: var(--base-900);
     --destructive: #ef4444;
     --destructive-foreground: #ffffff;
-
-    /* Borders & Inputs */
-    --border: #e2e8f0; /* Slate 200 */
-    --input: #e2e8f0;
-    --ring: #0f172a;
-
-    /* Radius */
+    --border: var(--base-200);
+    --input: var(--base-200);
+    --ring: var(--base-900);
     --radius: 0.5rem;
   }
 
@@ -43,16 +58,16 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-base-500 font-medium antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
-/* Glassmorphism Utilities (Subtle for Light Mode) */
+/* Glassmorphism Utilities */
 .glass {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
