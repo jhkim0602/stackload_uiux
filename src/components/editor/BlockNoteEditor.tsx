@@ -19,14 +19,18 @@ export default function BlockNoteEditor({ onChange, initialContent, editable = t
     const [blocks, setBlocks] = useState<any[]>([]);
 
     // Create the editor instance
-    const editor = useCreateBlockNote({
-        initialContent: initialContent ? async (editor) => {
-             // Try to convert HTML to blocks if provided
-             // For simplicity in this version, we might just start empty or use partial blocks
-             // BlockNote's HTML parsing is robust
-             return editor.tryParseHTMLToBlocks(initialContent);
-        } : undefined,
-    });
+    const editor = useCreateBlockNote();
+
+    // Load initial content
+    useEffect(() => {
+        async function loadContent() {
+            if (initialContent && editor) {
+                const blocks = await editor.tryParseHTMLToBlocks(initialContent);
+                editor.replaceBlocks(editor.document, blocks);
+            }
+        }
+        loadContent();
+    }, [editor]); // Run only when editor is ready (effectively once)
 
     // Handle changes
     const handleChange = async () => {

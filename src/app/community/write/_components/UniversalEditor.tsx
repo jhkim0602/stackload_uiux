@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Send, Image as ImageIcon, Link as LinkIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { WriteCategory } from './CategorySelection';
-import { WriteCategory } from './CategorySelection';
+
 import dynamic from 'next/dynamic';
 
 const BlockNoteEditor = dynamic(() => import('@/components/editor/BlockNoteEditor'), {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useParams } from 'next/navigation';
 import {
@@ -24,15 +24,14 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
   const id = params?.id as string;
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  // Entry Animation Variants
-  const containerVariants = {
+  /* Entry Animation Variants */
+  const containerVariants: Variants = {
     hidden: { opacity: 0, scale: 0.98 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.5,
-        ease: "easeInOut"
+        duration: 0.5
       }
     }
   };

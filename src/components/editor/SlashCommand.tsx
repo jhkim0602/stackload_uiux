@@ -22,7 +22,7 @@ export const SlashCommand = Extension.create({
     return {
       suggestion: {
         char: '/',
-        command: ({ editor, range, props }) => {
+        command: ({ editor, range, props }: any) => {
           props.command({ editor, range });
         },
       },
@@ -42,7 +42,7 @@ export const SlashCommand = Extension.create({
 const CommandList = forwardRef((props: any, ref) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const selectItem = (index) => {
+  const selectItem = (index: number) => {
     const item = props.items[index];
     if (item) {
       props.command(item);
@@ -54,7 +54,7 @@ const CommandList = forwardRef((props: any, ref) => {
   }, [props.items]);
 
   useImperativeHandle(ref, () => ({
-    onKeyDown: ({ event }) => {
+    onKeyDown: ({ event }: any) => {
       if (event.key === 'ArrowUp') {
         setSelectedIndex((selectedIndex + props.items.length - 1) % props.items.length);
         return true;
@@ -74,7 +74,7 @@ const CommandList = forwardRef((props: any, ref) => {
   return (
     <div className="bg-white rounded-xl shadow-xl border border-base-200 overflow-hidden w-64 p-1.5 ring-4 ring-base-50/50">
       <div className="text-[10px] uppercase font-bold text-base-400 px-2 py-1 mb-1">Basic Blocks</div>
-      {props.items.map((item, index) => (
+      {props.items.map((item: any, index: number) => (
         <button
           key={index}
           className={`flex items-center gap-3 w-full px-2 py-2 text-sm rounded-lg transition-colors ${
@@ -98,11 +98,11 @@ const CommandList = forwardRef((props: any, ref) => {
 CommandList.displayName = 'CommandList';
 
 export const renderItems = () => {
-  let component;
-  let popup;
+  let component: any;
+  let popup: any;
 
   return {
-    onStart: (props) => {
+    onStart: (props: any) => {
       component = new ReactRenderer(CommandList, {
         props,
         editor: props.editor,
@@ -122,7 +122,7 @@ export const renderItems = () => {
         placement: 'bottom-start',
       });
     },
-    onUpdate: (props) => {
+    onUpdate: (props: any) => {
       component.updateProps(props);
 
       if (!props.clientRect) {
@@ -133,7 +133,7 @@ export const renderItems = () => {
         getReferenceClientRect: props.clientRect,
       });
     },
-    onKeyDown: (props) => {
+    onKeyDown: (props: any) => {
       if (props.event.key === 'Escape') {
         popup[0].hide();
         return true;
@@ -147,13 +147,13 @@ export const renderItems = () => {
   };
 };
 
-export const getSuggestionItems = ({ query }) => {
+export const getSuggestionItems = ({ query }: any) => {
   return [
     {
       title: 'Heading 1',
       description: 'Big section heading',
       icon: <Heading1 className="w-4 h-4" />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).setNode('heading', { level: 1 }).run();
       },
     },
@@ -161,7 +161,7 @@ export const getSuggestionItems = ({ query }) => {
       title: 'Heading 2',
       description: 'Medium section heading',
       icon: <Heading2 className="w-4 h-4" />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).setNode('heading', { level: 2 }).run();
       },
     },
@@ -169,7 +169,7 @@ export const getSuggestionItems = ({ query }) => {
       title: 'Heading 3',
       description: 'Small section heading',
       icon: <Heading3 className="w-4 h-4" />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).setNode('heading', { level: 3 }).run();
       },
     },
@@ -177,7 +177,7 @@ export const getSuggestionItems = ({ query }) => {
       title: 'Bullet List',
       description: 'Create a simple bullet list',
       icon: <List className="w-4 h-4" />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).toggleBulletList().run();
       },
     },
@@ -185,7 +185,7 @@ export const getSuggestionItems = ({ query }) => {
       title: 'Numbered List',
       description: 'Create a numbered list',
       icon: <ListOrdered className="w-4 h-4" />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
       },
     },
@@ -193,7 +193,7 @@ export const getSuggestionItems = ({ query }) => {
       title: 'Code Block',
       description: 'Capture a code snippet',
       icon: <Code className="w-4 h-4" />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).toggleCodeBlock().run();
       },
     },
@@ -201,7 +201,7 @@ export const getSuggestionItems = ({ query }) => {
       title: 'Quote',
       description: 'Capture a quote',
       icon: <Quote className="w-4 h-4" />,
-      command: ({ editor, range }) => {
+      command: ({ editor, range }: any) => {
         editor.chain().focus().deleteRange(range).toggleBlockquote().run();
       },
     },
