@@ -21,12 +21,12 @@ export default function Home() {
                   No.1 Developer Career Platform
               </div>
               <h1 className="text-5xl md:text-7xl font-black tracking-tight text-base-900 mb-8 leading-[1.1] animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
-                  Code Your <br/>
-                  <span className="text-accent-600">Future Career</span>
+                  StackLoad <br/>
+                  <span className="text-accent-600">UIUX 구현 페이지 입니다.</span>
               </h1>
               <p className="text-xl text-base-500 mb-12 max-w-2xl mx-auto leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200 font-medium">
-                  StackLoad는 개발자의 성장을 돕는 올인원 플랫폼입니다.<br/>
-                  기술 블로그 큐레이션부터 AI 면접 코칭까지, 당신의 커리어 여정을 함께합니다.
+                  모든 데이터는 mock데이터 기반으로 임시로 해당 기능은 이런식으로 배치 해야겠다.<br/> 레이아웃을 이런식으로,디자인은 이런식으로 해야겠다를 구현해놓은 예시 임
+
               </p>
           </div>
       </section>
@@ -144,8 +144,8 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-24 bg-base-50 border-t border-base-200">
           <div className="container max-w-4xl mx-auto px-4 text-center">
-              <h2 className="text-3xl md:text-4xl font-black text-base-900 mb-6">Ready to Level Up?</h2>
-              <p className="text-lg text-base-500 mb-10 font-medium">지금 StackLoad와 함께 10만 개발자의 커리어 여정에 합류하세요.</p>
+              <h2 className="text-3xl md:text-4xl font-black text-base-900 mb-6">UIUX 구현 페이지 입니다.</h2>
+              <p className="text-lg text-base-500 mb-10 font-medium">어디를 어떤 기술로 구현해야할지 고민, 추가할건 뭐가잇을까 고민.</p>
               <div className="flex justify-center gap-4">
                   <Link href="/profile" className="h-9 px-4 flex items-center justify-center bg-accent-600 text-white rounded-md font-medium hover:bg-accent-700 transition-all gap-2 text-sm shadow-none focus:ring-2 focus:ring-accent-700/50 focus:outline-none">
                        <Rocket className="h-4 w-4" /> Get Started
