@@ -125,4 +125,7 @@ export const MOCK_ACTIVITIES: Activity[] = [
       </ul>
     `
   }
+// ... MOCK_ACTIVITIES array end ...
 ];
+
+export const ACTIVITY_TYPES = ['All', 'Hackathon', 'Conference', 'Bootcamp', 'Study'] as const;
