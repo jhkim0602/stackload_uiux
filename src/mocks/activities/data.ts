@@ -1,29 +1,4 @@
-export interface Activity {
-  id: string;
-  type: 'Hackathon' | 'Conference' | 'Bootcamp' | 'Study';
-  title: string;
-  organizer: string;
-  date: string;
-  deadline: string;
-  dDay: string;
-  location: string;
-  tags: string[];
-  imageUrl: string;
-  status: 'Open' | 'Closed' | 'Imminent';
-  description: string; // HTML content supported
-
-  // Community Integration Mock Data
-  recruitmentCount: number; // Number of active team building posts in community
-
-  // New Fields for Enhanced List
-  reward?: string; // e.g. "상금 2,600만 원"
-  participants?: number; // e.g. "280명"
-
-  // User specific mock
-  myStatus?: 'Applied' | 'Bookmarked' | null;
-}
-
-export const ACTIVITY_TYPES = ['All', 'Hackathon', 'Conference', 'Bootcamp', 'Study'];
+import { Activity } from './types';
 
 export const MOCK_ACTIVITIES: Activity[] = [
   {
@@ -34,8 +9,8 @@ export const MOCK_ACTIVITIES: Activity[] = [
     date: '2025.04.10 - 2025.04.12',
     deadline: '2025.03.31',
     dDay: 'D-12',
-    location: 'Samsung R&D Center, Seoul',
-    tags: ['Algorithm', 'AI', 'Offline', 'Prize 50M'],
+    location: '삼성 SDS 잠실 캠퍼스',
+    tags: ['Algorithm', 'AI', 'Offline', '총상금 5천만원'],
     imageUrl: 'https://images.unsplash.com/photo-1504384308090-c54be3855833?q=80&w=1000&auto=format&fit=crop',
     status: 'Open',
     recruitmentCount: 12,
@@ -60,8 +35,8 @@ export const MOCK_ACTIVITIES: Activity[] = [
     date: '2025.05.05',
     deadline: '2025.04.20',
     dDay: 'D-25',
-    location: 'COEX Grand Ballroom',
-    tags: ['Frontend', 'React', 'Networking'],
+    location: 'COEX 그랜드볼룸',
+    tags: ['Frontend', 'React', 'Tech Conf'],
     imageUrl: 'https://images.unsplash.com/photo-1540575467063-178a50935339?q=80&w=1000&auto=format&fit=crop',
     status: 'Open',
     recruitmentCount: 3,
@@ -79,13 +54,13 @@ export const MOCK_ACTIVITIES: Activity[] = [
   {
     id: 'act3',
     type: 'Bootcamp',
-    title: 'Woowa Tech Course 7th Gen',
-    organizer: 'Woowahan Brothers',
+    title: '우아한테크코스 7기',
+    organizer: '우아한형제들',
     date: '2025.02.01 - 2025.11.30',
     deadline: '2024.12.31',
     dDay: 'Closed',
-    location: 'Seoul / Online Hybrid',
-    tags: ['Fullstack', 'Intensive', 'Mentoring'],
+    location: '서울 송파구 / 온라인',
+    tags: ['Fullstack', '교육', '채용연계'],
     imageUrl: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1000&auto=format&fit=crop',
     status: 'Closed',
     participants: 3000,
@@ -103,13 +78,13 @@ export const MOCK_ACTIVITIES: Activity[] = [
   {
     id: 'act4',
     type: 'Study',
-    title: 'NestJS Deep Dive Study',
-    organizer: 'StackLoad Community',
+    title: 'NestJS 실무 심화 스터디',
+    organizer: 'StackLoad 커뮤니티',
     date: '2025.03.15 - 2025.05.15',
     deadline: '2025.03.10',
     dDay: 'D-3',
-    location: 'Gangnam Station Workspace',
-    tags: ['Backend', 'NestJS', 'Study Group'],
+    location: '강남역 인근',
+    tags: ['Backend', 'NestJS', '오프라인'],
     imageUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop',
     status: 'Imminent',
     recruitmentCount: 5,
@@ -133,8 +108,8 @@ export const MOCK_ACTIVITIES: Activity[] = [
     date: '2025.08.18 - 2025.08.20',
     deadline: '2025.07.30',
     dDay: 'D-120',
-    location: 'Busan BEXCO',
-    tags: ['Global', 'English', 'Hackathon'],
+    location: '부산 벡스코',
+    tags: ['Global', '해커톤', '영어'],
     imageUrl: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1000&auto=format&fit=crop',
     status: 'Open',
     reward: '1,000만 원',

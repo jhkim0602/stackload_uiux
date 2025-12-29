@@ -1,0 +1,188 @@
+import { Post } from './types';
+
+export const MOCK_POSTS: Post[] = [
+  // --- Q&A ---
+  {
+    id: 'q1',
+    type: 'QnA',
+    category: 'qna',
+    title: 'Next.js 14 Server Actions에서 에러 핸들링 어떻게 하시나요? ㅠㅠ',
+    author: '코딩하는감자',
+    authorLevel: 2,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Potato',
+    content: 'Server Actions을 사용하는데 try-catch 블록 내부에서 리다이렉트가 안되는 문제가 있습니다. 공식 문서에는 redirect()가 에러를 던진다고 되어있던데 어떻게 처리하는 게 정석일까요?',
+    tags: ['Next.js', 'React', 'ErrorHandling'],
+    likes: 12,
+    views: 450,
+    date: '방금 전',
+    isSolved: false,
+    comments: []
+  },
+  {
+    id: 'q2',
+    type: 'QnA',
+    category: 'qna',
+    title: 'React Query v5 useSuspenseQuery 폭포수 현상 해결법',
+    author: '프론트꿈나무',
+    authorLevel: 5,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Precious',
+    content: '부모/자식 컴포넌트에서 각각 useSuspenseQuery를 썼더니 네트워크 탭에서 요청이 직렬로 나가네요. prefetchQuery를 써야하나요 아니면 useQueries로 묶어야 하나요?',
+    tags: ['React', 'Performance', 'TanStackQuery'],
+    likes: 8,
+    views: 210,
+    date: '어제',
+    isSolved: true,
+    comments: []
+  },
+  {
+    id: 'q3',
+    type: 'QnA',
+    category: 'qna',
+    title: 'Spring Boot JPA N+1 문제, EntityGraph로 해결 안되는 경우?',
+    author: '자바칩프라푸치노',
+    authorLevel: 10,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Java',
+    content: '분명 EntityGraph 설정했는데 쿼리가 계속 나갑니다. 혹시 FetchJoin이랑 같이 쓰면 안되나요? 로그 첨부합니다.',
+    tags: ['Spring', 'JPA', 'Backend'],
+    likes: 24,
+    views: 1100,
+    date: '2시간 전',
+    isSolved: true,
+    comments: []
+  },
+
+  // --- Tips ---
+  {
+    id: 't1',
+    type: 'Feed',
+    category: 'tips',
+    title: 'CSS-in-JS vs Tailwind CSS, 2024년엔 뭘 배워야 할까요?',
+    author: '퍼블리셔',
+    authorLevel: 1,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Leo',
+    content: '이제 막 프론트엔드 시작하는 취준생입니다. styled-components는 여전히 많이 쓰이지만 Tailwind CSS 점유율이 엄청 오르네요. 현업자분들의 생각이 궁금합니다.',
+    tags: ['CSS', 'Tailwind', 'Trend'],
+    likes: 24,
+    views: 800,
+    date: '2일 전',
+    thumbnail: 'https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=800&auto=format&fit=crop&q=60',
+    comments: []
+  },
+  {
+    id: 't2',
+    type: 'Feed',
+    category: 'tips',
+    title: '주니어 개발자가 꼭 알아야 할 Git 명령어 모음 💡',
+    author: '깃허브마스터',
+    authorLevel: 12,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Git',
+    content: 'cherry-pick, rebase, stash... 이 정도만 알아도 1인분은 합니다. 상황별로 정리해봤습니다.',
+    tags: ['Git', 'HoneyTip', 'Junior'],
+    likes: 231,
+    views: 5200,
+    date: '3일 전',
+    thumbnail: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&auto=format&fit=crop&q=60',
+    comments: []
+  },
+
+  // --- Career ---
+  {
+    id: 'c1',
+    type: 'Feed',
+    category: 'career',
+    title: '3년차 백엔드 이직 고민입니다 (네카라쿠배 vs 스타트업)',
+    author: '익명_82d1',
+    authorLevel: 15,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jack',
+    content: '현재 시리즈B 스타트업에서 리드급으로 일하고 있는데, 대기업 오퍼가 왔습니다. 연봉은 비슷한데 기술적인 깊이를 더 경험하고 싶어서 고민입니다.',
+    tags: ['이직', '커리어', '고민상담'],
+    likes: 156,
+    views: 3200,
+    date: '13:42',
+    comments: []
+  },
+  {
+    id: 'c2',
+    type: 'Feed',
+    category: 'career',
+    title: '[후기] 우아한형제들 최종 면접 탈락 후기...',
+    author: '배고픈개발자',
+    authorLevel: 10,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Buster',
+    content: '기술 면접까지는 분위기 좋았는데 임원 면접에서 컬처핏 질문에 너무 솔직했던 것 같습니다. 다른 분들 참고하시라고 질문 리스트 공유합니다.',
+    tags: ['면접후기', '우아한형제들', '회고'],
+    likes: 230,
+    views: 5600,
+    date: '3일 전',
+    comments: []
+  },
+
+  // --- Free ---
+  {
+    id: 'f1',
+    type: 'Feed',
+    category: 'free',
+    title: '오늘자 판교 점심 물가 실화냐... 💸',
+    author: '판교직장인',
+    authorLevel: 8,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix',
+    content: '제육볶음 먹었는데 13,000원 나옴. 내 월급 빼고 다 오르는 듯.',
+    tags: ['일상', '판교', '점심'],
+    likes: 45,
+    views: 890,
+    date: '12:30',
+    comments: []
+  },
+  {
+    id: 'f2',
+    type: 'Feed',
+    category: 'free',
+    title: '개발자가 맥북을 써야 하는 이유 (반박 시 님 말이 맞음)',
+    author: 'AppleLover',
+    authorLevel: 25,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mimi',
+    content: '1. 터미널 환경이 리눅스랑 비슷해서 서버 배포랑 환경 맞추기 편함... 트랙패드 짱짱맨...',
+    tags: ['개발장비', 'MacBook', '토론'],
+    likes: 89,
+    views: 1500,
+    date: '2일 전',
+    images: ['https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=60'],
+    comments: []
+  },
+
+  // --- Connect ---
+  {
+    id: 'co1',
+    type: 'Feed',
+    category: 'connect',
+    title: '깃헙 스타 3k 찍은 오픈소스 프로젝트 홍보합니다! 🚀',
+    author: 'OpenSourceMan',
+    authorLevel: 42,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rocky',
+    content: '약 1년간 주말 갈아넣어서 만든 리액트 폼 라이브러리입니다. 한번씩 구경와주세요!',
+    tags: ['오픈소스', '홍보', 'React', 'SideProject'],
+    likes: 412,
+    views: 8900,
+    date: '4일 전',
+    projectType: 'Side Project',
+    recruitStatus: 'open',
+    comments: []
+  },
+  {
+    id: 'co2',
+    type: 'Feed',
+    category: 'connect',
+    title: '[사이드프로젝트] 프론트엔드 개발자 1분 모십니다 (React/Next.js)',
+    author: '사이드매니아',
+    authorLevel: 15,
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Side',
+    content: '현재 기획, 디자인, 백엔드2, 프론트1 구성입니다. 1월 런칭 목표로 불태우실 분! 포트폴리오 첨부 부탁드려요.',
+    tags: ['구인', '사이드프로젝트', 'React'],
+    likes: 15,
+    views: 450,
+    date: '1일 전',
+    projectType: 'Side Project',
+    recruitStatus: 'open',
+    comments: []
+  }
+];

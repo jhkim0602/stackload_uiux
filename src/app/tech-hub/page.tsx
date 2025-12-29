@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { MOCK_STACKS, TECH_CATEGORIES } from '@/mocks/stacks';
+import { MOCK_STACKS, TECH_CATEGORIES } from '@/mocks/tech-hub';
 import { cn } from '@/lib/utils';
 import { BookOpen, Star, TrendingUp, ArrowRight } from 'lucide-react';
 

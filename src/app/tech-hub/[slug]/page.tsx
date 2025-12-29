@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { MOCK_STACKS } from '@/mocks/stacks';
+import { MOCK_STACKS } from '@/mocks/tech-hub';
 import { ChevronLeft, BookOpen, Bookmark, Share2 } from 'lucide-react';
 import { DocNavigation, DocViewer, OnThisPage } from '@/components/tech-hub/TriadicLayout';
 import { useState } from 'react';

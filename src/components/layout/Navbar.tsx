@@ -8,57 +8,23 @@ import { MOCK_USER } from '@/mocks/user';
 import { useState, useRef } from 'react';
 
 const NAV_ITEMS = [
-  { label: '홈', href: '/', icon: LayoutDashboard },
-  { label: '블로그', href: '/blogs', icon: BookOpen },
   {
-    label: '테크 허브',
-    href: '/tech-hub',
-    icon: Layers,
+    label: '인싸이트',
+    href: '/insights', // Note: This might need a redirect or just be a parent
+    icon: BookOpen,
     children: [
-        { label: '기술 스택 탐색', href: '/tech-hub', desc: '최신 라이브러리와 프레임워크' },
-        { label: '개발자 로드맵', href: '/tech-hub?tab=roadmap', desc: '커리어 성장을 위한 가이드' },
+        { label: '기술 블로그', href: '/blogs', desc: '최신 기술 트렌드와 아티클' },
+        { label: '테크 허브', href: '/tech-hub', desc: '라이브러리와 프레임워크 탐색' },
+        { label: '개발자 로드맵', href: '/roadmap', desc: '커리어 성장을 위한 가이드' },
     ]
   },
   {
-    label: '채용',
-    href: '/jobs',
+    label: '커리어',
+    href: '/career',
     icon: Briefcase,
     children: [
+        { label: '대외활동', href: '/activities', desc: '해커톤, 경진대회, 동아리' },
         { label: '채용 공고', href: '/jobs', desc: '엄선된 개발자 포지션' },
-        { label: '기업 분석', href: '/jobs/companies', desc: '기술 중심 기업 디렉토리' },
-    ]
-  },
-  {
-    label: '활동',
-    href: '/activities',
-    icon: LayoutDashboard,
-    isMega: true,
-    children: [
-        {
-            title: '카테고리 탐색',
-            items: [
-                { label: '전체 활동', href: '/activities' },
-                { label: '경진대회', href: '/activities?type=Competition' },
-                { label: '해커톤', href: '/activities?type=Hackathon' },
-                { label: '스터디 & 모임', href: '/activities?type=Study' },
-            ]
-        },
-        {
-            title: '팀 & 프로젝트',
-            items: [
-                { label: '팀원 모집하기', href: '/community/write?tag=TeamRecruit', icon: UserPlus },
-                { label: '내 프로젝트 관리', href: '/profile/projects', icon: FileText },
-            ]
-        },
-        {
-            title: '협업 워크스페이스',
-            items: [
-                { label: '내 워크스페이스', href: '/workspace', icon: Layers },
-                { label: '문서 & 칸반', href: '/workspace/docs', icon: FileText },
-                { label: '라이브 챗/보이스', href: '/workspace/chat', icon: Video },
-                { label: 'AI ERD 설계', href: '/workspace/erd', icon: Zap },
-            ]
-        }
     ]
   },
   {
@@ -66,14 +32,30 @@ const NAV_ITEMS = [
     href: '/community',
     icon: MessageSquare,
     children: [
-        { label: '기술 Q&A', href: '/community/qna', desc: '에러 해결과 기술 질문' },
-        { label: '정보 & 팁', href: '/community/tips', desc: '개발 꿀팁과 아티클 공유' },
-        { label: '커리어 & 이직', href: '/community/career', desc: '이직, 연봉, 회사 생활' },
-        { label: '사는 얘기', href: '/community/free', desc: '개발자들의 소소한 잡담' },
-        { label: '모임 & 스터디', href: '/community/connect', desc: '사이드 프로젝트와 스터디' },
+        { label: '자유 게시판', href: '/community', desc: '개발자들의 소통 공간' },
+        { label: '스터디 & 모임', href: '/community/connect', desc: '함께 성장하는 동료 찾기' },
+        { label: '팀원 모집', href: '/community/write?tag=TeamRecruit', desc: '사이드 프로젝트 팀원 구하기' },
     ]
   },
-  { label: 'AI 면접', href: '/interview', icon: Video },
+  {
+    label: '워크스페이스',
+    href: '/workspace',
+    icon: LayoutDashboard,
+    children: [
+        { label: '프로젝트 관리', href: '/workspace', desc: '내 프로젝트 한눈에 보기' },
+        { label: '협업 도구', href: '/workspace/tools', desc: '생산성을 높이는 도구들' },
+    ]
+  },
+  {
+    label: 'AI 면접',
+    href: '/interview',
+    icon: Video,
+    children: [
+        { label: 'AI 모의 면접', href: '/interview', desc: '실전 같은 AI 면접 연습' },
+        { label: '면접 분석', href: '/interview/analysis', desc: '나의 면접 실력 분석' },
+        { label: '면접 대기실', href: '/interview/room', desc: '면접 시작하기' },
+    ]
+  },
 ];
 
 export function Navbar() {
@@ -162,38 +144,7 @@ export function Navbar() {
             onMouseLeave={handleMouseLeave}
           >
               <div className="container max-w-7xl mx-auto py-6 px-4">
-                  {NAV_ITEMS.find(i => i.label === hoveredNav)?.isMega ? (
-                      // Complex Mega Menu (Activities)
-                      <div className="grid grid-cols-4 gap-8">
-                          <div className="col-span-1 bg-base-50 rounded-lg p-5 border border-base-100">
-                              <h3 className="font-bold text-lg text-base-900 mb-2">{hoveredNav}</h3>
-                              <p className="text-xs text-base-500 leading-relaxed mb-4">
-                                  새로운 기회를 발견하고<br/>
-                                  동료와 함께 성장하세요.
-                              </p>
-                              <div className="flex items-center text-[10px] font-bold text-base-600 gap-1 uppercase tracking-wide">
-                                  <Zap className="w-3 h-3" /> Trending: Hackathon
-                              </div>
-                          </div>
-                          {(NAV_ITEMS.find(i => i.label === hoveredNav)?.children as any[]).map((group: any, idx) => (
-                              <div key={idx} className="col-span-1">
-                                  <h4 className="font-bold text-base-900 mb-3 flex items-center gap-2 text-xs uppercase tracking-wider text-base-400">{group.title}</h4>
-                                  <ul className="space-y-1">
-                                      {group.items.map((sub: any) => (
-                                          <li key={sub.label}>
-                                              <Link href={sub.href} className="flex items-center gap-2 text-sm text-base-600 hover:text-base-900 hover:bg-base-50 px-2 py-1.5 rounded-md transition-colors group/link">
-                                                  {sub.icon && <sub.icon className="w-3.5 h-3.5 text-base-400 group-hover/link:text-base-900" />}
-                                                  {sub.label}
-                                              </Link>
-                                          </li>
-                                      ))}
-                                  </ul>
-                              </div>
-                          ))}
-                      </div>
-                  ) : (
-                      // Simple Dropdown (Tech Hub, Jobs)
-                      <div className="grid grid-cols-2 gap-2 max-w-sm ml-4">
+                  <div className="grid grid-cols-2 gap-2 max-w-lg">
                           {(NAV_ITEMS.find(i => i.label === hoveredNav)?.children as any[]).map((sub: any) => (
                               <Link key={sub.label} href={sub.href} className="flex flex-col group p-3 hover:bg-base-50 rounded-lg border border-transparent hover:border-gray-200 transition-all">
                                   <span className="text-sm font-bold text-base-900 group-hover:text-black">{sub.label}</span>
@@ -201,7 +152,6 @@ export function Navbar() {
                               </Link>
                           ))}
                       </div>
-                  )}
               </div>
           </div>
       )}

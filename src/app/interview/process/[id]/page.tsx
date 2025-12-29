@@ -1,4 +1,4 @@
-import { MOCK_VIRTUAL_COMPANIES } from '@/mocks/virtual_companies';
+import { MOCK_VIRTUAL_COMPANIES } from '@/mocks/companies';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronLeft, CheckCircle2, Circle, Clock, ArrowRight, Video, FileText, Code2, AlertCircle } from 'lucide-react';

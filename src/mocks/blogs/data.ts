@@ -1,0 +1,156 @@
+import { BlogPost } from './types';
+
+export const MOCK_BLOGS: BlogPost[] = [
+  {
+    id: 'b1',
+    title: 'Toss Slash 24 - No Code 로 생산성 300% 높이기',
+    excerpt: '개발자 없이 운영팀이 직접 A/B 테스트를 셋팅하고 배포할 수 있는 환경을 구축한 이야기를 공유합니다.',
+    coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=60',
+    source: 'Toss',
+    category: 'Culture',
+    tags: ['Productivity', 'Automation', 'NoCode'],
+    author: '이준호',
+    date: '2024.05.20',
+    readTime: '8 min',
+    views: 15420,
+    content: "<h2>문제의 시작: 개발자 병목 현상</h2><p>토스는 매일 수십 개의 A/B 테스트가 돌아가는 조직입니다. 하지만 모든 실험을 개발자가 직접 코드에 심어야 한다면 어떻게 될까요? 운영 효율화를 위한 고민과 해결 과정을 상세히 다룹니다.</p>"
+  },
+  {
+    id: 'b2',
+    title: '우아한형제들 마이크로서비스 아키텍처 전환기',
+    excerpt: '모놀리식 아키텍처에서 MSA로 전환하며 겪었던 수많은 시행착오와 교훈들, 그리고 미래의 방향성.',
+    coverImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=60',
+    source: 'Woowahan',
+    category: 'Architecture',
+    tags: ['MSA', 'Refactoring', 'Spring Boot'],
+    author: '김배민',
+    date: '2024.05.18',
+    readTime: '12 min',
+    views: 12300,
+    content: "<h2>왜 MSA로 가야 했나?</h2><p>배달의민족 서비스 초기는 거대한 PHP 모놀리식 애플리케이션이었습니다. 트래픽 폭증을 감당하기 위해 선택한 MSA 전환, 그 험난했던 여정을 회고합니다.</p>"
+  },
+  {
+    id: 'b3',
+    title: '카카오톡 메시지 서버의 대규모 트래픽 처리 전략',
+    excerpt: '새해 첫날 0시, 초당 수백만 건의 폭주하는 메시지 트래픽을 어떻게 안정적으로 처리했는지에 대한 기술적 회고.',
+    coverImage: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&auto=format&fit=crop&q=60',
+    source: 'Kakao',
+    category: 'Backend',
+    tags: ['Distributed System', 'Kotlin', 'Kafka'],
+    author: '박카카오',
+    date: '2024.05.15',
+    readTime: '10 min',
+    views: 9800,
+    content: "<h2>1월 1일 0시의 악몽과 극복</h2><p>대한민국 국민이라면 누구나 1월 1일 0시에 메시지를 보냅니다. 이때 발생하는 트래픽은 상상을 초월합니다. 카카오가 이 트래픽을 견뎌내는 기술적 비결을 공개합니다.</p>"
+  },
+  {
+    id: 'b4',
+    title: 'LINE의 글로벌 서비스 성능 최적화 가이드',
+    excerpt: '네트워크 환경이 좋지 않은 국가에서도 빠른 속도를 보장하기 위한 프론트엔드 최적화 기법 대방출.',
+    coverImage: 'https://images.unsplash.com/photo-1555421689-4917475181f3?w=800&auto=format&fit=crop&q=60',
+    source: 'Line',
+    category: 'Frontend',
+    tags: ['Performance', 'WebAssembly', 'Network'],
+    author: '최라인',
+    date: '2024.05.10',
+    readTime: '7 min',
+    views: 8500,
+    content: "<h2>Latency와의 전쟁</h2><p>LINE은 동남아시아 사용자가 많습니다. 느린 3G 네트워크 환경에서도 끊김 없는 사용자 경험을 제공하기 위한 이미지 최적화, 캐싱 전략 등을 소개합니다.</p>"
+  },
+  {
+    id: 'b5',
+    title: '네이버 검색 랭킹 알고리즘의 진화 (AiRS)',
+    excerpt: '사용자 의도를 파악하고 개인화된 검색 결과를 제공하기 위한 AI 모델의 발전 과정과 서비스 적용 사례.',
+    coverImage: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&auto=format&fit=crop&q=60',
+    source: 'Naver',
+    category: 'AI',
+    tags: ['LLM', 'Recommendation', 'Search'],
+    author: '정네이버',
+    date: '2024.05.08',
+    readTime: '15 min',
+    views: 11200,
+    content: "<h2>검색의 패러다임 변화</h2><p>단순 키워드 매칭을 넘어, 사용자 의도를 파악하는 딥러닝 검색 추천 시스템 AiRS를 소개합니다. 수십억 건의 로그 데이터를 어떻게 학습시켰을까요?</p>"
+  },
+  {
+    id: 'b6',
+    title: '당근마켓의 지역 기반 데이터베이스 샤딩 전략',
+    excerpt: '동네 인증 기반 서비스를 위한 효율적인 DB 파티셔닝과 쿼리 최적화 사례.',
+    coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=60',
+    source: 'Danggeun',
+    category: 'Backend',
+    tags: ['Database', 'PostgreSQL', 'Geospatial'],
+    author: '황당근',
+    date: '2024.05.05',
+    readTime: '9 min',
+    views: 7600,
+    content: "<h2>지역 기반 데이터의 특징</h2><p>당근마켓의 데이터는 지역적 격리성이 강합니다. 이를 활용한 효과적인 샤딩 전략을 통해 쿼리 성능을 10배 향상시킨 경험을 공유합니다.</p>"
+  },
+  {
+    id: 'b7',
+    title: '컬리 물류 시스템의 자동화 여정',
+    excerpt: '새벽 배송의 핵심, 물류 센터 자동화를 위해 도입한 로봇 제어 시스템과 소프트웨어 아키텍처.',
+    coverImage: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&auto=format&fit=crop&q=60',
+    source: 'Kurly',
+    category: 'Data',
+    tags: ['IoT', 'System Design', 'Logistics'],
+    author: '김컬리',
+    date: '2024.05.01',
+    readTime: '11 min',
+    views: 6400,
+    content: "<h2>0.1초의 승부</h2><p>주문 마감 후 새벽 7시까지 배송을 완료하기 위한 물류 자동화 기술의 핵심을 다룹니다. DAS(Digital Assorting System)와 QPS(Quick Picking System)의 통합 아키텍처를 소개합니다.</p>"
+  },
+  {
+    id: 'b8',
+    title: '올리브영의 옴니채널 전략을 지탱하는 기술',
+    excerpt: '온라인과 오프라인 매장을 연결하는 O2O 시스템 구축기와 대규모 이벤트 트래픽 대응 전략.',
+    coverImage: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&auto=format&fit=crop&q=60',
+    source: 'OliveYoung',
+    category: 'Architecture',
+    tags: ['O2O', 'Cloud', 'Event Driven'],
+    author: '최올영',
+    date: '2024.04.28',
+    readTime: '9 min',
+    views: 9200,
+    content: "<h2>올영세일, 트래픽 폭주를 막아라</h2><p>단기간에 급증하는 트래픽을 유연하게 처리하기 위한 클라우드 네이티브 아키텍처와 대기열 시스템 도입기를 소개합니다.</p>"
+  },
+  {
+    id: 'b9',
+    title: '오늘의집: 인테리어 3D 시뮬레이션 웹 구현기',
+    excerpt: 'WebGL을 활용하여 웹 브라우저에서 고품질 3D 인테리어를 렌더링하기 위한 성능 최적화 여정.',
+    coverImage: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&auto=format&fit=crop&q=60',
+    source: 'Bucketplace',
+    category: 'Frontend',
+    tags: ['WebGL', 'Three.js', 'Graphics'],
+    author: '박집꾸',
+    date: '2024.04.25',
+    readTime: '14 min',
+    views: 13500,
+    content: "<h2>웹에서 3D가 가능해?</h2><p>방대한 가구 데이터를 로딩하고 실시간으로 배치하는 3D 시뮬레이터를 웹으로 구현하며 겪은 메모리 관리와 렌더링 최적화 노하우입니다.</p>"
+  },
+  {
+    id: 'b10',
+    title: '야놀자: 글로벌 여행 플랫폼을 위한 MSA 진화',
+    excerpt: '인수합병으로 복잡해진 레거시 시스템을 통합하고 글로벌 확장을 지원하는 유연한 아키텍처 설계.',
+    coverImage: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&auto=format&fit=crop&q=60',
+    source: 'Yanolja',
+    category: 'Architecture',
+    tags: ['Global', 'Integration', 'Legacy Migration'],
+    author: '김여행',
+    date: '2024.04.20',
+    readTime: '10 min',
+    views: 7100,
+    content: "<h2>레거시와의 작별</h2><p>다양한 회사를 인수하며 파편화된 기술 스택을 통합하고, 글로벌 트래픽을 처리할 수 있는 차세대 플랫폼 아키텍처를 소개합니다.</p>"
+  }
+// ... MOCK_BLOGS array end ...
+];
+
+export const SUB_CATEGORIES: Record<string, string[]> = {
+  Frontend: ['React', 'Next.js', 'Vue', 'Performance', 'WebAssembly', 'Testing'],
+  Backend: ['Spring Boot', 'Node.js', 'Kotlin', 'System Design', 'Database', 'API'],
+  AI: ['LLM', 'Deep Learning', 'RAG', 'Prompt Engineering', 'MLOps'],
+  DevOps: ['Kubernetes', 'Docker', 'AWS', 'CI/CD', 'Monitoring'],
+  Architecture: ['MSA', 'Clean Architecture', 'Event Driven', 'Serverless'],
+  Mobile: ['iOS', 'Android', 'Flutter', 'React Native', 'SwiftUI'],
+  Data: ['Big Data', 'Data Engineering', 'SQL', 'NoSQL', 'Analytics'],
+  Culture: ['Agile', 'Remote Work', 'Team Building', 'Hiring', 'Startups']
+};

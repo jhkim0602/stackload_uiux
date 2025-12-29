@@ -1,17 +1,4 @@
-export interface InterviewSession {
-  id: string;
-  role: string;
-  category: 'CS' | 'Frontend' | 'Backend' | 'Behavioral';
-  date: string;
-  score: number;
-  duration: string;
-  technicalAccuracy: number;
-  keywordUsage: { word: string; count: number }[];
-  logicScore: number;
-  feedback: string;
-  strengths: string[];
-  weaknesses: string[];
-}
+import { InterviewSession } from './types';
 
 export const MOCK_INTERVIEW_SESSIONS: InterviewSession[] = [
   {
@@ -79,7 +66,6 @@ export const MOCK_QUESTIONS = [
   "입사 후 3년 뒤 본인의 모습을 그려보세요."
 ];
 
-// Mock Data for Job Analysis
 export const MOCK_JOB_ANALYSIS = {
     analyzing: false,
     jobInfo: {

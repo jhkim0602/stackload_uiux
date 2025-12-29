@@ -1,10 +1,10 @@
 export const MOCK_USER = {
   id: 'u1',
-  name: 'Junghwan',
+  name: 'JungHwan',
   email: 'junghwan@example.com',
   avatar: 'https://i.pravatar.cc/150?u=junghwan',
   role: 'user',
-  bio: 'Full Stack Developer aiming for perfection.',
+  bio: '성장을 즐기는 풀스택 개발자입니다.',
   stats: {
     streak: 12,
     totalActivities: 405,
