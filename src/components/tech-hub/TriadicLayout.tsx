@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Chapter, TechStack } from '@/mocks/stacks';
+import { Chapter, TechStack } from '@/mocks/tech-hub';
 import { ChevronRight, Filter, Search, ExternalLink, MessageSquare, PlayCircle, Book } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
